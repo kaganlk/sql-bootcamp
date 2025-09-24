@@ -1,0 +1,58 @@
+// DBML ER Diagram for the E-commerce schema
+Project ecommerce_capstone_db {
+  database_type: "PostgreSQL"
+}
+
+Table musteri {
+  id bigserial [pk]
+  ad varchar(80)
+  soyad varchar(80)
+  email citext [unique]
+  sehir varchar(80)
+  kayit_tarihi timestamptz
+}
+
+Table satici {
+  id bigserial [pk]
+  ad varchar(120)
+  adres varchar(255)
+}
+
+Table kategori {
+  id bigserial [pk]
+  ad varchar(120) [unique]
+}
+
+Table urun {
+  id bigserial [pk]
+  ad varchar(200)
+  fiyat numeric(12,2)
+  stok int
+  kategori_id bigint [ref: > kategori.id]
+  satici_id bigint [ref: > satici.id]
+}
+
+Table siparis {
+  id bigserial [pk]
+  musteri_id bigint [ref: > musteri.id]
+  tarih timestamptz
+  toplam_tutar numeric(14,2)
+  odeme_turu varchar(20)
+}
+
+Table siparis_detay {
+  id bigserial [pk]
+  siparis_id bigint [ref: > siparis.id]
+  urun_id bigint [ref: > urun.id]
+  adet int
+  fiyat numeric(12,2)
+  indexes {
+    (siparis_id, urun_id) [unique]
+  }
+}
+
+Ref: musteri.id < siparis.musteri_id
+Ref: kategori.id < urun.kategori_id
+Ref: satici.id < urun.satici_id
+Ref: siparis.id < siparis_detay.siparis_id
+Ref: urun.id < siparis_detay.urun_id
