@@ -1,5 +1,3 @@
-# Dokümantasyon
-
 ## 1) Tasarım Özeti
 - **Temel varlıklar**: `musteri`, `satici`, `kategori`, `urun`, `siparis`, `siparis_detay`.
 - **Bağlar**: 
@@ -37,12 +35,3 @@
 - **Stok yarış koşulları**: Aynı ürüne eşzamanlı eklemelerde hatasız düşüm için `FOR UPDATE` ile satır kilitleme kullanıldı.
 - **Toplam tutar tutarlılığı**: Sipariş toplamının her değişimde doğru kalması için ayrı tetikleyici yazıldı.
 - **Email benzersizliği ve büyük/küçük harf**: `citext` eklentisi etkinleştirilerek `UNIQUE` çakışmalarının önüne geçildi.
-
-## 7) Genişletme Fikirleri (Opsiyonel)
-- `kupon/indirim` yapısı, kargo tablosu, iade süreçleri.
-- `odeme` tablosu ve durum makinesi (pending/paid/failed/refund).
-- Çok satıcılı pazar yerinde komisyon/risk analizi, settlement.
-
----
-
-**ER Diyagramları**: `erd.dbml` (dbdiagram.io) ve `erd_mermaid.md` (Mermaid) dosyalarındadır.
